@@ -1,17 +1,11 @@
 box.cfg{
-    listen = 3301,
-    wal_dir = "/app/tarantool_wal",
-    memtx_dir = "/app/tarantool_memtx",
-    vinyl_dir = "/app/tarantool_vinyl"
+    listen = 3301
 }
 
-local kv = box.schema.space.create("kv", {if_not_exists = true})
-
-kv:format({
-    {name = "key", type = "string"},
-    {name = "value", type = "string"}
+box.schema.space.create('kv', { if_not_exists = true })
+box.space.kv:format({
+    {name = 'key', type = 'string'},
+    {name = 'value', type = 'map'},
 })
 
-kv:create_index("primary", {parts = {"key"}, if_not_exists = true})
-
-box.schema.user.grant('guest', 'read,write,execute', 'universe', {if_not_exists = true})
+box.space.kv:create_index('primary', {parts = {'key'}, if_not_exists = true })
