@@ -1,5 +1,5 @@
 box.cfg{
-    listen = 3301
+    listen = 10001
 }
 
 box.schema.space.create('kv', { if_not_exists = true })
