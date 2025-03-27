@@ -20,17 +20,6 @@ except tarantool.error.NetworkError as e:
     logger.error(f"Failed to connect to Tarantool: {e}")
     raise RuntimeError(f"Failed to connect to Tarantool: {e}")
 
-# **Создание пространства kv, если его нет**
-try:
-    conn.space("kv")  # Проверяем, есть ли пространство
-except tarantool.error.SchemaError:
-    logger.info("Creating space 'kv'...")
-    conn.call("box.schema.space.create", "kv")
-    conn.call("box.space.kv:format", [{"name": "key", "type": "string"},
-                                      {"name": "value", "type": "string"}])
-    conn.call("box.space.kv:create_index", "primary", {"parts": ["key"]})
-    logger.info("Space 'kv' created successfully.")
-
 # API эндпоинты
 @app.post("/kv")
 def create_kv(item: dict):
