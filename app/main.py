@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 # Подключение к Tarantool
-TARANTOOL_HOST = os.getenv("TARANTOOL_HOST", "0.0.0.0")
-TARANTOOL_PORT = int(os.getenv("TARANTOOL_PORT", 10001))
+TARANTOOL_HOST = os.getenv("TARANTOOL_HOST", "localhost")
+TARANTOOL_PORT = int(os.getenv("TARANTOOL_PORT", 3301))
 
 try:
     conn = tarantool.Connection(TARANTOOL_HOST, TARANTOOL_PORT)

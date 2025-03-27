@@ -14,3 +14,10 @@ COPY app/ .
 
 # Запуск Tarantool и FastAPI
 CMD tarantool /app/init.lua & uvicorn main:app --host 0.0.0.0 --port 8000
+
+# Копируем скрипт entrypoint
+COPY app/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Запускаем скрипт
+CMD ["/entrypoint.sh"]
