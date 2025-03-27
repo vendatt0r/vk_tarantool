@@ -2,10 +2,11 @@ box.cfg{
     listen = 3301
 }
 
-box.schema.space.create('kv', { if_not_exists = true })
-box.space.kv:format({
-    {name = 'key', type = 'string'},
-    {name = 'value', type = 'map'},
-})
-
-box.space.kv:create_index('primary', {parts = {'key'}, if_not_exists = true })
+box.once("init", function()
+    local kv = box.schema.space.create("kv")
+    kv:format({
+        {name = "key", type = "string"},
+        {name = "value", type = "string"}
+    })
+    kv:create_index("primary", {parts = {"key"}})
+end)
