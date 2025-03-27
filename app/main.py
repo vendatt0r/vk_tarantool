@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 # Подключение к Tarantool
-TARANTOOL_HOST = os.getenv("TARANTOOL_HOST", "127.0.0.1")
+TARANTOOL_HOST = os.getenv("TARANTOOL_HOST", "vktarantool-production.up.railway.app")
 TARANTOOL_PORT = int(os.getenv("TARANTOOL_PORT", 3301))
 
 try:
